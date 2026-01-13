@@ -1,0 +1,24 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+{% block title %}Подписка на категории{% endblock title %}
+
+{% block content %}
+<h3 class="text-warning">Подписка на категории</h3>
+
+<table class="table table-bordered mx-auto mt-5 w-25">
+    <tr>
+    </tr>
+    {% for category in categories %}
+    <tr>
+        <td>
+            {{ category.name }}
+            {% if user in category.subscribers.all %}
+            <a class="btn btn-danger bnt-sm" href="{% url 'unsubscribe' category.id %}">Отписаться</a>
+            {% else %}
+            <a class="btn btn-success bnt-sm" href="{% url 'subscribe' category.id %}">Подписаться</a>
+            {% endif %}
+        </td>
+        {% endfor %}
+    </tr>
+</table>
+{% endblock content %}

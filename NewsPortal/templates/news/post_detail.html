@@ -1,0 +1,31 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+{% block title %}Пост {{ post.title }}{% endblock title %}
+
+{% block content %}
+<h3 class="text-primary">Пост "{{ post.title }}"</h3>
+
+<table>
+    <tr>
+        <td>Тип</td>
+        <td>Дата</td>
+        <td>Заголовок</td>
+        <td>Содержание</td>
+        <td>Рейтинг</td>
+        <td>Категории</td>
+        <td>Автор</td>
+    </tr>
+    <tr>
+        <td>{{ post.get_post_type_display }}</td>
+        <td>{{ post.created_at|date:'d E Y' }}</td>
+        <td>{{ post.title|censor }}</td>
+        <td>{{ post.text|censor }}</td>
+        <td>{{ post.rating }}</td>
+        {% for category in post.categories.all %}
+        <td>{{ category.name }}</td>
+        {% endfor %}
+        <td>{{ post.author.user.username }}</td>
+    </tr>
+</table>
+
+{% endblock content %}
